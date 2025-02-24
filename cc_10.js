@@ -1,15 +1,15 @@
 //Task 1: Creating a Product Class
 class Product {
-    constructor (name, id, price, stock){
-        this.name = name;
-        this.id = id;
-        this.price = price;
-        this.stock = stock;
+    constructor (name, id, price, stock){ //Constructor initializes the product with the name, ID, price, and the stock quantity
+        this.name = name;         //Storing the product name
+        this.id = id;        //Storing the product ID
+        this.price = price;        //Storing the product price
+        this.stock = stock;        //Storing the available stock quantity
     }
-    getDetails(){
+    getDetails(){    //Method to return product details as a formatted string
         return `Product: ${this.name}, ID: ${this.id}, Price: $${this.price}, Stock: ${this.stock}`;
     }
-    updateStock(quantity){
+    updateStock(quantity){     //Method to update stock when an order is placed
         this.stock -= quantity;
     }
 }
@@ -22,20 +22,20 @@ console.log(prod1.getDetails()); // Expected output: "Product: Laptop, ID: 101, 
 
 //Task 2: Creating an Order Class
 class Order {
-    constructor(orderId, product, quantity) {
-      this.orderId = orderId;
-      this.product = product;
-      this.quantity = quantity;
-      this.totalPrice = this.calculateTotalPrice();
+    constructor(orderId, product, quantity) {     //Constructor initializing an order with ID, product, and quantity
+      this.orderId = orderId;         //Storing the order ID
+      this.product = product;        //Storing the product being ordered
+      this.quantity = quantity;        //Storing the ordered quantity
+      this.totalPrice = this.calculateTotalPrice();        //Calculating the total order price
       
-      this.product.updateStock(this.quantity);
+      this.product.updateStock(this.quantity);        //Reducing the stock of the product when the order is created
     }
   
     calculateTotalPrice() {
       return this.product.price * this.quantity;
     }
   
-    getOrderDetails() {
+    getOrderDetails() {     //Method to return the order details as a formatted string
       return `Order ID: ${this.orderId}, Product: ${this.product.name}, Quantity: ${this.quantity}, Total Price: $${this.totalPrice}`;
     }
   }
@@ -47,13 +47,13 @@ console.log(prod1.getDetails()); // Expected output: "Product: Laptop, ID: 101, 
 
 //Task 3: Creating an Inventory Class
 class Inventory{
-    constructor (){
+    constructor (){    //Constructor initializes an empty list of products and orders
         this.products = [];
     }
-    addProduct(product){
+    addProduct(product){     //Method to add a product to the inventory
         this.products.push(product);
     }
-    listProducts(){
+    listProducts(){     //Method to display all products in the inventory
         this.products.forEach(prod => console.log(prod.getDetails()));
     }
 }
@@ -64,16 +64,16 @@ inventory.addProduct(prod1);
 inventory.listProducts(); // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
 
 //Task 4: Implementing Order Management
-placeOrder (orderId, product, quantity){
-    if (product.stock >= quantity){
+placeOrder (orderId, product, quantity){     //Method to create and place an order for a product
+    if (product.stock >= quantity){        //Ensuring that there is enough stock before placing the order
         const order = new Order(orderId, product,quantity);
-        this.orders.push(order);
+        this.orders.push(order);            //Adding the new order to the list of orders
         console.log(`order placed successfully: ${order.getOrderDetails()}`);
     } else {
-        console.log("insufficient stock for order.");
+        console.log("insufficient stock for order.");             //Logging to the console if there is insufficient stock
     }
 }
-listOrders(){
+listOrders(){    //Method to display all orders placed in the inventory system
     this.orders.foreach(order =>{
         console.log(order.getOrderDetails());
     });
@@ -87,9 +87,9 @@ console.log(prod1.getDetails());
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
 
 //Task 5: Implementing Product Restocking
-restockProduct(productId, quantity){
-    const product = this.products.find(prod => prod.id === productId);
-    if (product){
+restockProduct(productId, quantity){    //Method to increase the stock of a product based on its product ID
+    const product = this.products.find(prod => prod.id === productId);         //Searching for the product in the inventory by its ID
+    if (product){         //If the product is found, increase its stock
         product.stock += quantity;
         console.log(`Product ${product.name} restocked. New Stock: ${product.stock}`)
     } else {
